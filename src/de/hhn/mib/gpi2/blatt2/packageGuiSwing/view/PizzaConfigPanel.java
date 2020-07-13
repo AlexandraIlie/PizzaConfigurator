@@ -9,16 +9,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
  * Class that initializes the components and adds them to the JPanel
  */
-public class PizzaConfigPanel extends JPanel implements ActionListener {
+public class PizzaConfigPanel extends JPanel implements ActionListener, ItemListener {
 
     private JLabel sizeLabel;
     private JLabel toppingLabel;
@@ -41,6 +45,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener {
     private BufferedImage bufferedImage;
     private JFormattedTextField dateTextField;
     private JFormattedTextField timeTextField;
+    private List<String> pizzaToppings=new ArrayList<>();
 
     public PizzaConfigPanel() {
         this.setLayout(new GridBagLayout());
@@ -50,15 +55,15 @@ public class PizzaConfigPanel extends JPanel implements ActionListener {
     }
 
     public void addListeners() {
-        tomatoButton.addActionListener(this);
-        cheeseButton.addActionListener(this);
-        salamiButton.addActionListener(this);
-        hamButton.addActionListener(this);
-        pineappleButton.addActionListener(this);
-        vegetableButton.addActionListener(this);
-        seafoodButton.addActionListener(this);
-        nutellaButton.addActionListener(this);
-        sourCreamButton.addActionListener(this);
+        tomatoButton.addItemListener(this);
+        cheeseButton.addItemListener(this);
+        salamiButton.addItemListener(this);
+        hamButton.addItemListener(this);
+        pineappleButton.addItemListener(this);
+        vegetableButton.addItemListener(this);
+        seafoodButton.addItemListener(this);
+        nutellaButton.addItemListener(this);
+        sourCreamButton.addItemListener(this);
     }
 
 
@@ -235,7 +240,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        Graphics2D g = bufferedImage.createGraphics();
+        /*Graphics2D g = bufferedImage.createGraphics();
         JRadioButton btn = (JRadioButton) e.getSource();
         String path="src/images/" + btn.getText() + ".png";
         BufferedImage fgImage = null;
@@ -246,56 +251,56 @@ public class PizzaConfigPanel extends JPanel implements ActionListener {
         }
         g.drawImage(fgImage, 0, 0, null);
         repaint();
-        g.dispose();
-
+        g.dispose();*/
     }
 
-    /**
-     *  Method that repaints the default picture by adding the selected toppings on it
-     * @param e represents the selected JRadioButton
-     */
-   /* @Override
-    public void actionPerformed(ActionEvent e) {
-        Graphics2D g = bufferedImage.createGraphics();
-        //JRadioButton btn = (JRadioButton) e.getSource();
-        String path=null;
-        if (tomatoButton.isSelected()) {
-            path="src/images/" + PizzaTopping.TOMATO.toString() + ".png";
-        }
-        if (cheeseButton.isSelected()) {
-            path="src/images/" + PizzaTopping.CHEESE.toString() + ".png";
-        }
-        if (salamiButton.isSelected()) {
-            path="src/images/" + PizzaTopping.SALAMI.toString() + ".png";
-        }
-        if (hamButton.isSelected()) {
-            path="src/images/" + PizzaTopping.HAM.toString() + ".png";
-        }
-        if (pineappleButton.isSelected()) {
-            path="src/images/" + PizzaTopping.PINEAPPLE.toString() + ".png";
-        }
-        if (vegetableButton.isSelected()) {
-            path="src/images/" + PizzaTopping.VEGETABLES.toString() + ".png";
-        }
-        if (seafoodButton.isSelected()) {
-            path="src/images/" + PizzaTopping.SEAFOOD.toString() + ".png";
-        }
-        if (nutellaButton.isSelected()) {
-            path="src/images/" + PizzaTopping.NUTELLA.toString() + ".png";
-        }
-        if (sourCreamButton.isSelected()) {
-            path="src/images/" + PizzaTopping.SOUR_CREAM.toString() + ".png";
-        }
-        BufferedImage fgImage = null;
-        try {
-            fgImage = ImageIO.read(new File(path));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        g.drawImage(fgImage, 0, 0, null);
-        repaint();
-        g.dispose();
+    @Override
+    public void itemStateChanged(ItemEvent itemEvent) {
+        JRadioButton btn = (JRadioButton) itemEvent.getSource();
 
-    }*/
+        //g.dispose();
+
+        if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
+            pizzaToppings.add(btn.getText());
+
+            ImageIcon icon = new ImageIcon("src/images/" + btn.getText() + ".png");
+            JLabel label = new JLabel( icon );
+
+
+            //imagePanel.add(new JLabel(new ImageIcon(readImage())));
+
+            /*Graphics2D g = bufferedImage.createGraphics();
+            String path="src/images/" + btn.getText() + ".png";
+            BufferedImage fgImage = null;
+            try {
+                fgImage = ImageIO.read(new File(path));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            g.drawImage(fgImage, 0, 0, null);
+            repaint();
+            g.dispose();*/
+
+        }
+        else if (itemEvent.getStateChange() == ItemEvent.DESELECTED) {
+            pizzaToppings.remove(btn.getText());
+
+        }
+
+       /* Graphics2D g = bufferedImage.createGraphics();
+        String path = null;
+        BufferedImage fgImage = null;
+        for(int i=0; i < pizzaToppings.size() ; i++){
+            path="src/images/" + pizzaToppings.get(i) + ".png";
+            try {
+                fgImage = ImageIO.read(new File(path));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            g.drawImage(fgImage, 0, 0, null);
+
+        }repaint();
+        g.dispose();*/
+    }
 
 }

@@ -67,11 +67,11 @@ public class PizzaConfigPanelController {
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yy");
         LocalDateTime now = LocalDateTime.now();
-        String curretDate = dtf.format(now);
+        String currentDate = dtf.format(now);
 
         try {
             date1 = formatDate.parse(pizzaConfigPanel.dateTextFieldAction());
-            date2 = formatDate.parse(curretDate);
+            date2 = formatDate.parse(currentDate);
             time = formatTime.parse(pizzaConfigPanel.timeTextFieldAction());
 
         } catch (ParseException e) {
