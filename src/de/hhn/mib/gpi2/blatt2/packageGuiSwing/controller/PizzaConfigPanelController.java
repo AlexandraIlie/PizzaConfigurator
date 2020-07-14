@@ -20,8 +20,8 @@ import java.util.Date;
  */
 public class PizzaConfigPanelController {
     PizzaConfigPanel pizzaConfigPanel;
-    public static Pizza pizza;
-    public static Order order;
+    private Pizza pizza;
+    private Order order;
 
     public PizzaConfigPanelController(PizzaConfigPanel pizzaConfigPanel) {
         this.pizzaConfigPanel = pizzaConfigPanel;
@@ -35,15 +35,14 @@ public class PizzaConfigPanelController {
     private void setActions() {
         pizzaConfigPanel.doneButtonAction(e -> {
             try {
-                pizza = new Pizza(pizzaConfigPanel.getSelectedSize(), pizzaConfigPanel.getSelectedToppings());
                 checkDateTime();
-                order.addPizza(pizza);
-                //pizzaConfigPanel.addTopImg(pizzaConfigPanel.getSelectedToppings());
-                int n = JOptionPane.showConfirmDialog(pizzaConfigPanel, "Preis: " + pizza.getPrice() + " Cent. Wollen Sie die Pizza bestellen?", "Bestellung bestätigen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                pizza = new Pizza(pizzaConfigPanel.getSelectedSize(), pizzaConfigPanel.getSelectedToppings());
+                int confirm = JOptionPane.showConfirmDialog(pizzaConfigPanel, "Preis: " + pizza.getPrice() + " Cent. Wollen Sie die Pizza bestellen?", "Bestellung bestätigen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    order.addPizza(pizza);
+                }
             } catch (NoToppingSelectedException ntse) {
                 JOptionPane.showMessageDialog(pizzaConfigPanel, "Sie muessen mindestens einen Belag auswählen!", "Kein Belag ausgewählt", JOptionPane.WARNING_MESSAGE);
-            /*} catch (IOException e1) {
-                e1.printStackTrace();*/
             } catch (InvalidDateException e1) {
                 e1.printStackTrace();
             }
@@ -94,7 +93,7 @@ public class PizzaConfigPanelController {
         }
     }
 
-    public static Order getOrder(){
+    public Order getOrder(){
       return order;
     }
 

@@ -245,6 +245,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
 
         if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
             pizzaToppings.add(btn.getText());
+
         }
         else if (itemEvent.getStateChange() == ItemEvent.DESELECTED) {
             pizzaToppings.remove(btn.getText());
@@ -270,6 +271,8 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
         }repaint();
         g.dispose();
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

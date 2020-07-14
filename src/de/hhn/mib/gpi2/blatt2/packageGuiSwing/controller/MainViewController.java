@@ -14,7 +14,6 @@ import java.io.*;
 import java.util.List;
 import java.util.Locale;
 
-import static de.hhn.mib.gpi2.blatt2.packageGuiSwing.controller.PizzaConfigPanelController.getOrder;
 
 /**
  * Class that sets the properties of the MainView class and the actions of the JMenuBar components
@@ -25,10 +24,11 @@ public class MainViewController {
     private MyMenuBar menuBar;
     private JFileChooser fileChooser;
     private File fileToSave;
+    private PizzaConfigPanelController pizzaConfigPanelController;
 
     public MainViewController() {
         PizzaConfigPanel pizzaConfigPanel = new PizzaConfigPanel();
-        new PizzaConfigPanelController(pizzaConfigPanel);
+        pizzaConfigPanelController = new PizzaConfigPanelController(pizzaConfigPanel);
         mainView = new MainView(pizzaConfigPanel);
         menuBar = new MyMenuBar();
         mainView.setJMenuBar(menuBar);
@@ -50,17 +50,17 @@ public class MainViewController {
                 fileToSave = fileChooser.getSelectedFile();
                 try {
                     checkExtension(fileToSave);
-                    writeOrder(fileChooser.getSelectedFile().toString());
-                    JOptionPane.showConfirmDialog(null, getOrder().toString(), "Die Bestellung wurde gespeichert", JOptionPane.PLAIN_MESSAGE);
-                }
-               catch(FileNotFoundException e0)
+                    //writeOrder(fileChooser.getSelectedFile().toString());
+                    JOptionPane.showConfirmDialog(null, pizzaConfigPanelController.getOrder().toString(), "Die Bestellung wurde gespeichert", JOptionPane.PLAIN_MESSAGE);
+                    }
+               /*catch(FileNotFoundException e0)
                 {
                     e0.printStackTrace();
-                } catch (InvalidFileExtensionException e1) {
+                }*/ catch (InvalidFileExtensionException e1) {
                     e1.printStackTrace();
-                } catch (IOException e2) {
+                } /*catch (IOException e2) {
                     e2.printStackTrace();
-                }
+                }*/
             }
         });
         menuBar.importOrderAction(e -> {
@@ -69,7 +69,6 @@ public class MainViewController {
             {
                 try{
                     String bestellung = readOrder(fileChooser.getSelectedFile().toString());
-
                     JOptionPane.showConfirmDialog(null, bestellung, "Ihre Bestellung", JOptionPane.PLAIN_MESSAGE);
                 }
                 catch(IOException e2)
@@ -101,8 +100,10 @@ public class MainViewController {
      */
     private void checkExtension(File file) throws InvalidFileExtensionException {
         String extension = "csv";
-        if (!extension.equals(file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".") + 1)))
+        if (!extension.equals(file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf(".") + 1))){
+            JOptionPane.showMessageDialog(null,"Bitte fügen Sie dem Dateinamen die Erweiterung .csv oder .txt hinzu");
             throw new InvalidFileExtensionException();
+        }
     }
 
     /**
@@ -110,7 +111,7 @@ public class MainViewController {
      * @param filePath
      * @throws IOException
      */
-    public void writeOrder(String filePath) throws IOException {
+   /* public void writeOrder(String filePath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter(filePath));) {
             writer.write(String.valueOf(getOrder().getOrderId()));
@@ -121,7 +122,7 @@ public class MainViewController {
                 writer.newLine();
             }
         }
-    }
+    }*/
 
     /**
      * Method that reads the order from the file

@@ -34,11 +34,12 @@ public class Order {
         this.time = time;
     }
 
+
     @Override
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", pizzas=" + pizzas +
+                ", pizzas=" + pizzas.toString() +
                 '}';
     }
 
