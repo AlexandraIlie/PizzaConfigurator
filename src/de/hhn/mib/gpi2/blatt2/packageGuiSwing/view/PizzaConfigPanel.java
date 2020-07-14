@@ -15,8 +15,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -42,6 +40,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
     private JButton cancelButton;
     private JPanel buttonPanel;
     private JPanel imagePanel;
+    private JLabel imageLabel;
     private BufferedImage bufferedImage;
     private JFormattedTextField dateTextField;
     private JFormattedTextField timeTextField;
@@ -89,7 +88,8 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
         buttonPanel.add(doneButton);
         buttonPanel.add(cancelButton);
         imagePanel = new JPanel();
-        imagePanel.add(new JLabel(new ImageIcon(readImage())));
+        imageLabel = new JLabel(new ImageIcon(readImage()));
+        imagePanel.add(imageLabel);
         dateLabel = new JLabel(I18n.getMessage("Datum"));
         timeLabel = new JLabel(I18n.getMessage("Zeit"));
         dateTextField = new JFormattedTextField();
@@ -234,60 +234,29 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
         return timeTextField.getText();
     }
 
-    /**
-     *  Simple Method(Just for German Language) that repaints the default picture by adding the selected toppings on it
-     * @param e represents the selected JRadioButton
-     */
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        /*Graphics2D g = bufferedImage.createGraphics();
-        JRadioButton btn = (JRadioButton) e.getSource();
-        String path="src/images/" + btn.getText() + ".png";
-        BufferedImage fgImage = null;
-        try {
-            fgImage = ImageIO.read(new File(path));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        g.drawImage(fgImage, 0, 0, null);
-        repaint();
-        g.dispose();*/
-    }
 
+    /**
+     * Simple Method(Just for German Language) that repaints the default picture by adding/removing the selected toppings on it
+     * @param itemEvent
+     */
     @Override
     public void itemStateChanged(ItemEvent itemEvent) {
         JRadioButton btn = (JRadioButton) itemEvent.getSource();
 
-        //g.dispose();
-
         if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
             pizzaToppings.add(btn.getText());
-
-            ImageIcon icon = new ImageIcon("src/images/" + btn.getText() + ".png");
-            JLabel label = new JLabel( icon );
-
-
-            //imagePanel.add(new JLabel(new ImageIcon(readImage())));
-
-            /*Graphics2D g = bufferedImage.createGraphics();
-            String path="src/images/" + btn.getText() + ".png";
-            BufferedImage fgImage = null;
-            try {
-                fgImage = ImageIO.read(new File(path));
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            g.drawImage(fgImage, 0, 0, null);
-            repaint();
-            g.dispose();*/
-
         }
         else if (itemEvent.getStateChange() == ItemEvent.DESELECTED) {
             pizzaToppings.remove(btn.getText());
+            imagePanel.remove(imageLabel);
 
+            revalidate();
+
+            imageLabel = new JLabel(new ImageIcon(readImage()));
+            imagePanel.add(imageLabel);
         }
 
-       /* Graphics2D g = bufferedImage.createGraphics();
+        Graphics2D g = bufferedImage.createGraphics();
         String path = null;
         BufferedImage fgImage = null;
         for(int i=0; i < pizzaToppings.size() ; i++){
@@ -298,9 +267,14 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
                 ex.printStackTrace();
             }
             g.drawImage(fgImage, 0, 0, null);
-
         }repaint();
-        g.dispose();*/
+        g.dispose();
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
 
 }
