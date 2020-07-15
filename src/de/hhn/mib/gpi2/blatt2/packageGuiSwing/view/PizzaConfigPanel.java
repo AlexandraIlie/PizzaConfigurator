@@ -245,7 +245,6 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
 
         if (itemEvent.getStateChange() == ItemEvent.SELECTED) {
             pizzaToppings.add(btn.getText());
-
         }
         else if (itemEvent.getStateChange() == ItemEvent.DESELECTED) {
             pizzaToppings.remove(btn.getText());
@@ -256,7 +255,6 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
             imageLabel = new JLabel(new ImageIcon(readImage()));
             imagePanel.add(imageLabel);
         }
-
         Graphics2D g = bufferedImage.createGraphics();
         String path = null;
         BufferedImage fgImage = null;
@@ -270,6 +268,8 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
             g.drawImage(fgImage, 0, 0, null);
         }repaint();
         g.dispose();
+
+
     }
 
 

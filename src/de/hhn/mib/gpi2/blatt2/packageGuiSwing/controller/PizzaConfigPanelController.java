@@ -12,8 +12,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Class that sets the properties of the PizzaConfigPanel class,the actions of its components and creates a new Order.
@@ -92,9 +94,4 @@ public class PizzaConfigPanelController {
             order.setTime(time);
         }
     }
-
-    public Order getOrder(){
-      return order;
-    }
-
 }

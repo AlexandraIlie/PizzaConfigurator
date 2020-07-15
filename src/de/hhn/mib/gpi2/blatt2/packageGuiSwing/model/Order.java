@@ -22,7 +22,8 @@ public class Order {
         return orderId;
     }
 
-    public void addPizza(Pizza pizza){ pizzas.add(pizza);}
+    public void addPizza(Pizza pizza){
+        pizzas.add(pizza);}
 
     public List<Pizza> getPizzas(){ return pizzas;}
 
@@ -39,7 +40,7 @@ public class Order {
     public String toString() {
         return "Order{" +
                 "orderId=" + orderId +
-                ", pizzas=" + pizzas.toString() +
+                ", pizzas=" + pizzas+
                 '}';
     }
 

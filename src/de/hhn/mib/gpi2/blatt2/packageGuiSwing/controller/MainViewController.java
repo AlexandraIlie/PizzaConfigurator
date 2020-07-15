@@ -2,6 +2,8 @@ package de.hhn.mib.gpi2.blatt2.packageGuiSwing.controller;
 
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.I18n.I18n;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.exceptions.InvalidFileExtensionException;
+import de.hhn.mib.gpi2.blatt2.packageGuiSwing.exceptions.NoToppingSelectedException;
+import de.hhn.mib.gpi2.blatt2.packageGuiSwing.model.Order;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.model.Pizza;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.view.MainView;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.view.MyMenuBar;
@@ -24,11 +26,12 @@ public class MainViewController {
     private MyMenuBar menuBar;
     private JFileChooser fileChooser;
     private File fileToSave;
-    private PizzaConfigPanelController pizzaConfigPanelController;
+    private PizzaConfigPanel pizzaConfigPanel;
+    private Order order;
 
     public MainViewController() {
-        PizzaConfigPanel pizzaConfigPanel = new PizzaConfigPanel();
-        pizzaConfigPanelController = new PizzaConfigPanelController(pizzaConfigPanel);
+        pizzaConfigPanel = new PizzaConfigPanel();
+        order = new Order();
         mainView = new MainView(pizzaConfigPanel);
         menuBar = new MyMenuBar();
         mainView.setJMenuBar(menuBar);
@@ -50,17 +53,21 @@ public class MainViewController {
                 fileToSave = fileChooser.getSelectedFile();
                 try {
                     checkExtension(fileToSave);
-                    //writeOrder(fileChooser.getSelectedFile().toString());
-                    JOptionPane.showConfirmDialog(null, pizzaConfigPanelController.getOrder().toString(), "Die Bestellung wurde gespeichert", JOptionPane.PLAIN_MESSAGE);
-                    }
-               /*catch(FileNotFoundException e0)
+                    Pizza pizza = new Pizza(pizzaConfigPanel.getSelectedSize(), pizzaConfigPanel.getSelectedToppings());
+                    order.addPizza(pizza);
+                    writeOrder(fileChooser.getSelectedFile().toString());
+                    JOptionPane.showConfirmDialog(null, order.toString(), "Die Bestellung wurde gespeichert", JOptionPane.PLAIN_MESSAGE);
+                }
+               catch(FileNotFoundException e0)
                 {
                     e0.printStackTrace();
-                }*/ catch (InvalidFileExtensionException e1) {
+                } catch (InvalidFileExtensionException e1) {
                     e1.printStackTrace();
-                } /*catch (IOException e2) {
+                } catch (IOException e2) {
                     e2.printStackTrace();
-                }*/
+                } catch (NoToppingSelectedException noToppingSelectedException) {
+                    noToppingSelectedException.printStackTrace();
+                }
             }
         });
         menuBar.importOrderAction(e -> {
@@ -82,14 +89,12 @@ public class MainViewController {
                     JOptionPane.showConfirmDialog(null, e3.getMessage(), "", JOptionPane.WARNING_MESSAGE);
                 }
             }
-
         });
 
         menuBar.englishAction(e->{
             I18n.setLocale(new Locale("en"));
             mainView.dispose();
             new MainViewController();
-            //mainView.setVisible(true);
         });
     }
 
@@ -111,18 +116,18 @@ public class MainViewController {
      * @param filePath
      * @throws IOException
      */
-   /* public void writeOrder(String filePath) throws IOException {
+    public void writeOrder(String filePath) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(
                 new FileWriter(filePath));) {
-            writer.write(String.valueOf(getOrder().getOrderId()));
-            List<Pizza> pizzas = getOrder().getPizzas();
+            writer.write(String.valueOf(order.getOrderId()));
+            List<Pizza> pizzas = order.getPizzas();
             for (int i = 0; i < pizzas.size(); i++) {
                 writer.append(",");
                 writer.write(String.valueOf(pizzas.get(i)));
                 writer.newLine();
             }
         }
-    }*/
+    }
 
     /**
      * Method that reads the order from the file
