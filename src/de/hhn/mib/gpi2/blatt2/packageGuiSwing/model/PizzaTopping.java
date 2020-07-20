@@ -1,11 +1,14 @@
 package de.hhn.mib.gpi2.blatt2.packageGuiSwing.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Enum with the toppings and their prices that an object Pizza can have
  */
 public enum PizzaTopping {
 
-    TOMATO("Tomate",0.5),
+    TOMATE("Tomate",0.5),
     CHEESE("Kaese",0.5),
     SALAMI("Salami",0.5),
     HAM("Schinken",0.5),
@@ -27,8 +30,23 @@ public enum PizzaTopping {
         return toppingValue;
     }
 
+    public String getTopping() {
+        return topping;
+    }
+
     @Override
     public String toString() {
         return topping;
     }
+
+    public  String getToppingName(String name) {
+        for (PizzaTopping t : PizzaTopping.values()) {
+            if (t.topping.equalsIgnoreCase(name)) {
+                return t.name();
+            }
+        }
+        return null;
+    }
+
+    
 }

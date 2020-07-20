@@ -14,7 +14,7 @@ public class ImagePanel {
 
     public ImagePanel(){
         try {
-            bufferedImage = ImageIO.read(new File("GpiAufgabe/src/images/pizzaboden.png"));
+            bufferedImage = ImageIO.read(new File("GpiAufgabe/src/images/Pizzaboden.png"));
             Graphics2D g = bufferedImage.createGraphics();
             g.drawImage(bufferedImage, 0, 0, null);
             g.dispose();

@@ -31,7 +31,7 @@ public class Pizza {
      * @return price
      */
     public double getPrice(){
-        price = toppings.size()*PizzaTopping.TOMATO.getToppingValue()+size.getSizePrice();
+        price = toppings.size()*PizzaTopping.TOMATE.getToppingValue()+size.getSizePrice();
         return price;
     }
 

@@ -7,7 +7,7 @@ public enum PizzaSize {
 
     SMALL("Klein",4),
     MEDIUM("Mittel",5),
-    LARGE("Gross",7),
+    LARGE("Groß",7),
     EXTRA_LARGE("Riessig",10);
 
     PizzaSize(String size, int pizzaSizePrice) {

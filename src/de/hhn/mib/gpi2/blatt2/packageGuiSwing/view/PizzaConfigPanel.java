@@ -70,18 +70,20 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
      * Method that initializes the components
      */
     public void initComponents(){
-        sizeLabel = new JLabel(I18n.getMessage("Groesse"));
+        sizeLabel = new JLabel(I18n.getMessage("Size"));
         sizeComboBox = new JComboBox<>(PizzaSize.values());
         toppingLabel = new JLabel(I18n.getMessage("Belag"));
-        tomatoButton = new JRadioButton(I18n.getMessage(PizzaTopping.TOMATO.toString()));
-        cheeseButton = new JRadioButton(I18n.getMessage(PizzaTopping.CHEESE.toString()));
-        salamiButton = new JRadioButton(PizzaTopping.SALAMI.toString());
-        hamButton = new JRadioButton(I18n.getMessage(PizzaTopping.HAM.toString()));
-        pineappleButton = new JRadioButton(I18n.getMessage(PizzaTopping.PINEAPPLE.toString()));
-        vegetableButton = new JRadioButton(I18n.getMessage(PizzaTopping.VEGETABLES.toString()));
-        seafoodButton = new JRadioButton(I18n.getMessage(PizzaTopping.SEAFOOD.toString()));
-        nutellaButton = new JRadioButton(PizzaTopping.NUTELLA.toString());
-        sourCreamButton = new JRadioButton(PizzaTopping.SOUR_CREAM.toString());
+
+        tomatoButton = new JRadioButton(I18n.getMessage(PizzaTopping.TOMATE.name()));
+        cheeseButton = new JRadioButton(I18n.getMessage(PizzaTopping.CHEESE.name()));
+        salamiButton = new JRadioButton(I18n.getMessage(PizzaTopping.SALAMI.name()));
+        hamButton = new JRadioButton(I18n.getMessage(PizzaTopping.HAM.name()));
+        pineappleButton = new JRadioButton(I18n.getMessage(PizzaTopping.PINEAPPLE.name()));
+        vegetableButton = new JRadioButton(I18n.getMessage(PizzaTopping.VEGETABLES.name()));
+        seafoodButton = new JRadioButton(I18n.getMessage(PizzaTopping.SEAFOOD.name()));
+        nutellaButton = new JRadioButton(I18n.getMessage(PizzaTopping.NUTELLA.name()));
+        sourCreamButton = new JRadioButton(I18n.getMessage(PizzaTopping.SOUR_CREAM.name()));
+
         doneButton = new JButton(I18n.getMessage("Fertig"));
         cancelButton = new JButton(I18n.getMessage("Abbrechen"));
         buttonPanel = new JPanel();
@@ -137,7 +139,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
      */
     public BufferedImage readImage(){
         try {
-            bufferedImage = ImageIO.read(new File("src/images/pizzaboden.png"));
+            bufferedImage = ImageIO.read(new File("src/images/Pizzaboden.png"));
             Graphics2D g = bufferedImage.createGraphics();
             g.drawImage(bufferedImage, 0, 0, null);
             g.dispose();
@@ -166,7 +168,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
     public List<PizzaTopping> getSelectedToppings() throws NoToppingSelectedException {
         List<PizzaTopping> toppingList = new ArrayList<>();
         if (tomatoButton.isSelected()) {
-            toppingList.add(PizzaTopping.TOMATO);
+            toppingList.add(PizzaTopping.TOMATE);
         }
         if (cheeseButton.isSelected()) {
             toppingList.add(PizzaTopping.CHEESE);
@@ -248,6 +250,7 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
         }
         else if (itemEvent.getStateChange() == ItemEvent.DESELECTED) {
             pizzaToppings.remove(btn.getText());
+
             imagePanel.remove(imageLabel);
 
             revalidate();
@@ -266,12 +269,10 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
                 ex.printStackTrace();
             }
             g.drawImage(fgImage, 0, 0, null);
-        }repaint();
+        }
+        repaint();
         g.dispose();
-
-
     }
-
 
 
     @Override
