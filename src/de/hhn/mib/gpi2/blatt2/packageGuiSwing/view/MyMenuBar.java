@@ -4,7 +4,6 @@ import de.hhn.mib.gpi2.blatt2.packageGuiSwing.I18n.I18n;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
 /**
  * Class that initializes the components of the menu and adds action listeners

@@ -1,7 +1,5 @@
 package de.hhn.mib.gpi2.blatt2.packageGuiSwing.model;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Enum with the toppings and their prices that an object Pizza can have
