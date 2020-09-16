@@ -27,10 +27,12 @@ public class MainViewController {
     private JFileChooser fileChooser;
     private File fileToSave;
     private PizzaConfigPanel pizzaConfigPanel;
+    private PizzaConfigPanelController pizzaConfigPanelController;
     private Order order;
 
     public MainViewController() {
         pizzaConfigPanel = new PizzaConfigPanel();
+        pizzaConfigPanelController = new PizzaConfigPanelController(pizzaConfigPanel);
         order = new Order();
         mainView = new MainView(pizzaConfigPanel);
         menuBar = new MyMenuBar();

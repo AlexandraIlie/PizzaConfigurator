@@ -8,6 +8,9 @@ import de.hhn.mib.gpi2.blatt2.packageGuiSwing.model.PizzaTopping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,11 +40,5 @@ public class OrderTest {
    public void getOrderId(){
        assertEquals(1,order.getOrderId());
    }
-
-   @Test
-    public void setDate(){
-
-   }
-
 
 }
