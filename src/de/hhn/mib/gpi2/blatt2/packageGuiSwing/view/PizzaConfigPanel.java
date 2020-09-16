@@ -229,6 +229,15 @@ public class PizzaConfigPanel extends JPanel implements ActionListener, ItemList
     }
 
     /**
+     * Method that takes writes the current date in date text field.
+     * @return dateTextField.getText()
+     */
+    public void setDateTextFieldAction(String currentDate){
+        dateTextField.setText(currentDate);
+    }
+
+
+    /**
      * Method that takes the written time from the field and returns it as a String
      * @return timeTextField.getText()
      */
