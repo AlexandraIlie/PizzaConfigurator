@@ -1,5 +1,6 @@
 package de.hhn.mib.gpi2.blatt2.packageGuiSwing.controller;
 
+import de.hhn.mib.gpi2.blatt2.packageGuiSwing.I18n.I18n;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.exceptions.InvalidDateException;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.exceptions.NoToppingSelectedException;
 import de.hhn.mib.gpi2.blatt2.packageGuiSwing.model.Order;
@@ -36,7 +37,9 @@ public class PizzaConfigPanelController {
             try {
                 checkDateTime();
                 pizza = new Pizza(pizzaConfigPanel.getSelectedSize(), pizzaConfigPanel.getSelectedToppings());
-                int confirm = JOptionPane.showConfirmDialog(pizzaConfigPanel, "Preis: " + pizza.getPrice() + " Cent. Wollen Sie die Pizza bestellen?", "Bestellung bestätigen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                String[] options = {I18n.getMessage("Ja"), I18n.getMessage("Nein")};
+                int confirm = JOptionPane.showOptionDialog(pizzaConfigPanel, "Preis: " + pizza.getPrice() + " Cent. Wollen Sie die Pizza bestellen?", "Bestellung bestätigen", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null,
+                        options, options[0]);
                 if (confirm == JOptionPane.YES_OPTION) {
                     order.addPizza(pizza);
                 }
