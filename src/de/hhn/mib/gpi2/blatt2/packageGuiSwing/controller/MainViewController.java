@@ -98,6 +98,7 @@ public class MainViewController {
             mainView.dispose();
             new MainViewController();
         });
+
     }
 
     /**

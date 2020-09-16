@@ -4,15 +4,14 @@ import de.hhn.mib.gpi2.blatt2.packageGuiSwing.I18n.I18n;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * Class that initializes the components of the menu and adds action listeners
  */
 public class MyMenuBar extends JMenuBar{
 
-    private JMenu data;
     private JMenu order;
-    private JMenu help;
     private JMenuItem saveOrderItem;
     private JMenuItem importOrderItem;
     private JMenu language;
@@ -28,12 +27,11 @@ public class MyMenuBar extends JMenuBar{
      * I18n.getMessage gets the key of the attributes which are used for the internationalization
      */
     private void addComponents(){
-        data = new JMenu("Data");
         order = new JMenu(I18n.getMessage("Bestellung"));
-        help = new JMenu(I18n.getMessage("Hilfe"));
-        help.setMnemonic('H');
         saveOrderItem = new JMenuItem(I18n.getMessage("Bestellung_Speichern"));
+        saveOrderItem.setMnemonic(KeyEvent.VK_S);
         importOrderItem = new JMenuItem(I18n.getMessage("Bestellung_Importieren"));
+        importOrderItem.setMnemonic(KeyEvent.VK_I);
         order.add(saveOrderItem);
         order.add(importOrderItem);
         language = new JMenu(I18n.getMessage("Sprache"));
@@ -42,9 +40,7 @@ public class MyMenuBar extends JMenuBar{
         language.add(englishItem);
         language.add(germanItem);
 
-        this.add(data);
         this.add(order);
-        this.add(help);
         this.add(language);
     }
 
@@ -75,7 +71,6 @@ public class MyMenuBar extends JMenuBar{
             englishItem.addActionListener(actionListener);
         }
     }
-
 
 
 
